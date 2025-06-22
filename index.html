@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isara Dilnuka - Graphic Designer</title>
+    <script src="https://cdn.jsdelivr.net/npm/react@18.2.0/umd/react.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/react-dom@18.2.0/umd/react-dom.production.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/babel-standalone@6.26.0/babel.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <style>
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-in { animation: fadeIn 1s ease-in; }
+        .hover-scale:hover { transform: scale(1.05); transition: transform 0.3s ease; }
+        .glass { background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        .dark-glass { background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+    </style>
+</head>
+<body class="bg-black text-white font-sans">
+    <div id="root"></div>
+    <script type="text/babel">
+        const NavBar = () => {
+            const navLinks = ['Home', 'About', 'Services', 'Portfolio', 'Feedback', 'Contact'];
+            return (
+                <nav class="fixed top-0 w-full glass shadow-lg z-50">
+                    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div class="flex justify-between h-16">
+                            <div class="flex items-center">
+                                <h1 class="text-2xl font-bold">Isara Dilnuka</h1>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                {navLinks.map(link => (
+                                    <a
+                                        key={link}
+                                        href={`#${link.toLowerCase()}`}
+                                        class="text-white hover:text-[#FF4040] px-3 py-2 rounded-md text-sm font-medium transition-colors"
+                                    >
+                                        {link}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        const Hero = () => (
+            <section id="home" class="min-h-screen flex items-center justify-center bg-gradient-to-b from-[#8B0000] to-black fade-in">
+                <div class="text-center max-w-3xl mx-auto px-4 glass p-8 rounded-lg">
+                    <h2 class="text-5xl font-bold mb-4">Isara Dilnuka</h2>
+                    <p class="text-xl mb-6">Professional Graphic Designer from Horana, Sri Lanka</p>
+                    <p class="text-lg mb-8">Specializing in YouTube thumbnails, logos, posters, banners, and more</p>
+                    <div class="space-x-4">
+                        <a href="#portfolio" class="bg-[#FF4040] text-white px-6 py-3 rounded-full hover:bg-[#D3D3D3] transition-colors">View Portfolio</a>
+                        <a href="#contact" class="border border-[#FF4040] text-[#FF4040] px-6 py-3 rounded-full hover:bg-[#FF4040] hover:text-white transition-colors">Contact Me</a>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const About = () => (
+            <section id="about" class="py-20 bg-[rgba(211,211,211,0.2)] text-white fade-in">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center mb-12">About Me</h2>
+                    <div class="flex flex-col md:flex-row items-center gap-8 glass p-8 rounded-lg">
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-semibold mb-4">Creative Graphic Designer</h3>
+                            <p class="mb-4">Hello! I'm Isara Dilnuka, a passionate graphic designer from Horana, Sri Lanka. I specialize in creating eye-catching visual content that helps brands stand out.</p>
+                            <p class="mb-4">With years of experience, I combine modern design trends with rich Sinhala artistic influences to deliver unique and effective designs.</p>
+                        </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-semibold mb-4">My Design Skills</h3>
+                            <ul class="grid grid-cols-2 gap-2">
+                                {['Logo Design', 'YouTube Thumbnails', 'Poster Design', 'Banner Creation', 'Brand Identity', 'Social Media Graphics'].map(skill => (
+                                    <li key={skill} class="bg-[#FF4040] text-white px-4 py-2 rounded-md">{skill}</li>
+                                ))}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Services = () => (
+            <section id="services" class="py-20 bg-[rgba(0,0,0,0.5)] text-white fade-in">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center mb-12">My Services</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        {[
+                            { title: 'YouTube Thumbnails', desc: 'Eye-catching thumbnails to boost click-through rates.' },
+                            { title: 'Logo Design', desc: 'Unique logos that capture your brand’s essence.' },
+                            { title: 'Poster & Banner Design', desc: 'Striking visuals for events and promotions.' }
+                        ].map(service => (
+                            <div key={service.title} class="dark-glass p-6 rounded-lg hover-scale">
+                                <h3 class="text-xl font-semibold mb-2">{service.title}</h3>
+                                <p>{service.desc}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Portfolio = () => (
+            <section id="portfolio" class="py-20 bg-[rgba(211,211,211,0.2)] text-white fade-in">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center mb-12">Portfolio</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[
+                            { title: 'Tech Review Thumbnail', desc: 'Eye-catching YouTube thumbnail for tech channel' },
+                            { title: 'Gaming Thumbnail', desc: 'Dynamic thumbnail for gaming content' },
+                            { title: 'Restaurant Logo', desc: 'Modern logo for a local restaurant' },
+                            { title: 'Cultural Event Poster', desc: 'Vibrant poster for a cultural festival' },
+                            { title: 'Web Banner', desc: 'Professional banner for e-commerce' },
+                            { title: 'Music Concert Poster', desc: 'Dynamic poster for a music concert' }
+                        ].map(item => (
+                            <div key={item.title} class="glass p-4 rounded-lg shadow-lg hover-scale">
+                                <div class="h-48 bg-[#8B0000] rounded-md mb-4"></div>
+                                <h3 class="text-lg font-semibold">{item.title}</h3>
+                                <p class="text-sm">{item.desc}</p>
+                                <a href="#" class="text-[#FF4040] hover:underline">View Larger</a>
+                            </div>
+                        ))}
+                    </div>
+                    <div class="text-center mt-8">
+                        <a href="#portfolio" class="bg-[#FF4040] text-white px-6 py-3 rounded-full hover:bg-[#D3D3D3] hover:text-black transition-colors">View All Works</a>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Feedback = () => (
+            <section id="feedback" class="py-20 bg-[rgba(0,0,0,0.5)] text-white fade-in">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center mb-12">Client Feedback</h2>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/2 dark-glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold mb-4">Share Your Experience</h3>
+                            <div class="space-y-4">
+                                <input type="text" placeholder="Your Name" class="w-full p-2 rounded-md bg-[rgba(211,211,211,0.5)] text-white" />
+                                <input type="email" placeholder="Your Email" class="w-full p-2 rounded-md bg-[rgba(211,211,211,0.5)] text-white" />
+                                <select class="w-full p-2 rounded-md bg-[rgba(211,211,211,0.5)] text-white">
+                                    {[1, 2, 3, 4, 5].map(n => <option key={n} value={n}>{n} Star{n > 1 ? 's' : ''}</option>)}
+                                </select>
+                                <textarea placeholder="Your Feedback" class="w-full p-2 rounded-md bg-[rgba(211,211,211,0.5)] text-white h-32"></textarea>
+                                <button class="bg-[#FF4040] text-white px-6 py-2 rounded-full hover:bg-[#D3D3D3] hover:text-black transition-colors">Submit Feedback</button>
+                            </div>
+                        </div>
+                        <div class="md:w-1/2 space-y-6">
+                            <p class="text-center text-gray-400">No feedback available yet. Be the first to share your experience!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Contact = () => (
+            <section id="contact" class="py-20 bg-[rgba(211,211,211,0.2)] text-white fade-in">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <h2 class="text-4xl font-bold text-center mb-12">Get In Touch</h2>
+                    <div class="flex flex-col md:flex-row gap-8">
+                        <div class="md:w-1/2 dark-glass p-6 rounded-lg">
+                            <h3 class="text-2xl font-semibold mb-4">Contact Information</h3>
+                            <p class="mb-2"><strong>Location:</strong> Dikhengama, Munagama, Horana, 12400, Sri Lanka</p>
+                            <p class="mb-2"><strong>Phone:</strong> 0716155666</p>
+                            <p class="mb-2"><strong>Email:</strong> isaradilnuka@gmail.com</p>
+                            <p><strong>Working Hours:</strong><br />Mon-Fri: 9:00 AM - 6:00 PM<br />Sat: 10:00 AM - 4:00 PM</p>
+                        </div>
+                        <div class="md:w-1/2">
+                            <h3 class="text-2xl font-semibold mb-4">Send Me a Message</h3>
+                            <form id="contact-form" class="space-y-4 glass p-6 rounded-lg" onSubmit={e => {
+                                e.preventDefault();
+                                emailjs.sendForm('service_dmfo24a', 'template_btqkn97', e.target, 'yEU4ZKDB4pOIFa-rZ')
+                                    .then(() => alert('Message sent successfully!'))
+                                    .catch(() => alert('Failed to send message. Please try again.'));
+                            }}>
+                                <input type="text" name="from_name" placeholder="Your Name" class="w-full p-2 rounded-md bg-[rgba(255,255,255,0.2)] text-white" required />
+                                <input type="email" name="from_email" placeholder="Your Email" class="w-full p-2 rounded-md bg-[rgba(255,255,255,0.2)] text-white" required />
+                                <input type="text" name="subject" placeholder="Subject" class="w-full p-2 rounded-md bg-[rgba(255,255,255,0.2)] text-white" required />
+                                <textarea name="message" placeholder="Your Message" class="w-full p-2 rounded-md bg-[rgba(255,255,255,0.2)] text-white h-32" required></textarea>
+                                <button type="submit" class="bg-[#FF4040] text-white px-6 py-2 rounded-full hover:bg-[#8B0000] transition-colors">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        );
+
+        const Footer = () => (
+            <footer class="bg-[rgba(139,0,0,0.8)] py-8 text-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <p class="mb-4">© 2025 Isara Dilnuka. All Rights Reserved.</p>
+                    <p>Professional graphic designer specializing in YouTube thumbnails, logos, posters, and banners. Based in Horana, Sri Lanka.</p>
+                </div>
+            </footer>
+        );
+
+        const App = () => {
+            React.useEffect(() => {
+                emailjs.init('yEU4ZKDB4pOIFa-rZ');
+            }, []);
+            return (
+                <div>
+                    <NavBar />
+                    <Hero />
+                    <About />
+                    <Services />
+                    <Portfolio />
+                    <Feedback />
+                    <Contact />
+                    <Footer />
+                </div>
+            );
+        };
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>
